@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react'
 import { PDFDocument, rgb } from 'pdf-lib'
 import sample from './sample.pdf'
+import IFrame from 'react-iframe'
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class App extends React.Component {
     }
 
     this.drawRectangle = this.drawRectangle.bind(this)
+    this.onMouseDown = this.onMouseDown.bind(this)
   }
 
   componentDidMount = async () => {
@@ -44,11 +46,12 @@ class App extends React.Component {
       
       const pdfDataUri = await pdfDoc.saveAsBase64({dataUri: true})
       document.getElementById('pdf').src = pdfDataUri
-
     }
 
-    handleDraw() {
-      
+    onMouseDown() {
+      console.log("click me")
+      // e.preventDefault()
+      // console.log(e)
     }
 
   async drawRectangle() {
@@ -58,10 +61,10 @@ class App extends React.Component {
     var pages = pdfDoc.getPages()
     var firstPage = pages[0]
     firstPage.drawRectangle({
-      x: 40,
+      x: 210,
       y: 450,
-      width: 100,
-      height: 100,
+      width: 110,
+      height: 110,
       borderColor: rgb(1,0,0),
       borderWidth: 2,
     })
@@ -72,9 +75,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         <button onClick={this.drawRectangle}>CLICK ME</button>
-        <iframe id="pdf" style={{width: '850px', height: '1100px'}}></iframe>
+        <IFrame id="pdf" width="100%" height="1500px"></IFrame>
       </div>
     )
   }
