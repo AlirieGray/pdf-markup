@@ -8,13 +8,10 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      width: 0,
-      firstPage: null,
       pdf: null,
     }
 
     this.drawRectangle = this.drawRectangle.bind(this)
-    this.onMouseDown = this.onMouseDown.bind(this)
   }
 
   componentDidMount = async () => {
@@ -34,25 +31,11 @@ class App extends React.Component {
         }
       )
 
-      console.log("getting pdf doc")
       const pdfDoc = await PDFDocument.load(pdf)
-      const pages = pdfDoc.getPages()
-      const firstPage = pages[0]
-      const { width, height } = firstPage.getSize()
-      console.log("width ")
-      console.log(width)
-      currentComponent.setState({width})
-      currentComponent.setState({firstPage})
-      
       const pdfDataUri = await pdfDoc.saveAsBase64({dataUri: true})
       document.getElementById('pdf').src = pdfDataUri
     }
 
-    onMouseDown() {
-      console.log("click me")
-      // e.preventDefault()
-      // console.log(e)
-    }
 
   async drawRectangle() {
     console.log("draw rectangle")
